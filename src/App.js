@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const backend = process.env.REACT_APP_BACKEND_URL;
 
 const App = () => {
   const [count, setCount] = useState(0);
@@ -11,6 +10,8 @@ const App = () => {
   const [printable, setPrintable] = useState(false);
   const [printer, setPrinter] = useState(undefined);
   const [printerList, setPrinterList] = useState([]);
+
+  const backend = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     const getPrinters = async () => {
