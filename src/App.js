@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import {Select, Button} from '@material-ui/core';
 
 
 const App = () => {
@@ -54,8 +55,8 @@ const App = () => {
   return (
     <div>
       <p>
-        <select
-          disabled={printerList.length === 0}
+       {printerList.length > 0 && (
+        <Select
           onChange={handlePrinterChange}
           value={printer}
         >
@@ -67,28 +68,42 @@ const App = () => {
               {i.name}
             </option>
           ))}
-        </select>
+        </Select>
+      )}
       </p>
       <p>
-        <button onClick={() => decreaseCount()} disabled={count < 1 || loading}>
+        <Button onClick={() => decreaseCount()}
+          disabled={count < 1 || loading}
+          variant="outlined"
+
+        >
           -
-        </button>
-        {count}
-        <button
+        </Button>
+        &nbsp;&nbsp;&nbsp;{count}&nbsp;&nbsp;&nbsp;
+        <Button
           onClick={() => increaseCount()}
           disabled={count > 15 || loading}
+          variant="outlined"
         >
           +
-        </button>
-        <button
+        </Button>
+      </p>
+      <p>
+        <Button
           onClick={() => getCard(count)}
           disabled={count === 14 || loading}
+          variant="outlined"
         >
           Activate
-        </button>
-        <button onClick={() => print(card)} disabled={!printable || !printer}>
+        </Button>
+        {printer && (
+        <Button onClick={() => print(card)}
+        disabled={!printable}
+        variant="outlined"
+        >
           Print
-        </button>
+        </Button>
+      )}
       </p>
       <img src={imageUrl} alt={card ? card.name : "no card"} />
     </div>
