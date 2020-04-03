@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {Select, Button} from '@material-ui/core';
+import {Button} from '@material-ui/core';
 
 
 const App = () => {
@@ -8,9 +8,6 @@ const App = () => {
   const [card, setCard] = useState({});
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const [printable, setPrintable] = useState(false);
-  const [printer, setPrinter] = useState(undefined);
-  const [printerList, setPrinterList] = useState([]);
  
   const backend = process.env.REACT_APP_BACKEND_URL;
 
@@ -38,7 +35,6 @@ const App = () => {
         <Button onClick={() => decreaseCount()}
           disabled={count < 1 || loading}
           variant="outlined"
-
         >
           -
         </Button>
@@ -58,7 +54,7 @@ const App = () => {
           variant="outlined"
         >
           Activate
-      )}
+        </Button>
       </p>
       <img src={imageUrl} alt={card ? card.name : "no card"} />
     </div>
