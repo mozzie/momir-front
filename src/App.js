@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {Select, Button} from '@material-ui/core';
+import {MenuItem, Select, Button} from '@material-ui/core';
 
 
 const App = () => {
@@ -22,6 +22,7 @@ const App = () => {
       setPrinterList(printers.data);
     };
     getPrinters();
+
   }, []);
   const getCard = async c => {
     setLoading(true);
@@ -50,28 +51,29 @@ const App = () => {
   const increaseCount = () => setCount(Math.min(16, count + 1));
   const decreaseCount = () => setCount(Math.max(0, count - 1));
 
-  const handlePrinterChange = event => setPrinter(event.target.value);
+  const handlePrinterChange = event => {
+    console.log(event.target);
+    setPrinter(event.target.value);
+  }
 
   return (
     <div>
-      <p>
+      <div>
        {printerList.length > 0 && (
         <Select
           onChange={handlePrinterChange}
-          value={printer}
+          label={'"Select printer"'}
+          value={printer || ''}
         >
-          <option key="none" value="">
-            None
-          </option>
           {printerList.map(i => (
-            <option key={i.name} value={i.name}>
+            <MenuItem key={i.name} value={i.name}>
               {i.name}
-            </option>
+            </MenuItem>
           ))}
         </Select>
       )}
-      </p>
-      <p>
+      </div>
+      <div>
         <Button onClick={() => decreaseCount()}
           disabled={count < 1 || loading}
           variant="outlined"
@@ -87,8 +89,8 @@ const App = () => {
         >
           +
         </Button>
-      </p>
-      <p>
+      </div>
+      <div>
         <Button
           onClick={() => getCard(count)}
           disabled={count === 14 || loading}
@@ -104,7 +106,7 @@ const App = () => {
           Print
         </Button>
       )}
-      </p>
+      </div>
       <img src={imageUrl} alt={card ? card.name : "no card"} />
     </div>
   );
